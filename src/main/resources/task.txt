@@ -1,0 +1,40 @@
+Dziękuję za złożenie poprzez serwis NoFluffJobs.com aplikacji na stanowisko Junior Java Developera na Uniwersytecie Gdańskim.
+W związku potrzebą wstępnej oceny Pańskich kompetencji w zakresie programowania przesyłam do wykonania zadanie polegające na przygotowaniu aplikacji.
+Prezentacja aplikacji lub jej fragmentów nastąpi podczas rozmowy kwalifikacyjnej.
+Przesłana odpowiedź nie musi być komplementarna oraz może wykorzystać dowolny silnik bazodanowy.
+Implementacja i wykorzystane technologie są dowolne, może to być aplikacja konsolowa, webowa, okienkowa lub inna.
+Na rozwiązanie składa się kod źródłowy i inne pliki wymagane do działania aplikacji oraz krótki opis aplikacji i procesu jej uruchomienia.
+Rozwiązanie należy przesłać do końca tygodnia.
+ZADANIE:
+Zadanie polega na przygotowaniu aplikacji, która przeliczy kwotę z USD na PLN w oparciu o API NPB na dany dzień, zapisze do pliku XML oraz bazy danych i następnie wyświetli dane z zapisanej bazy danych w odpowiednim formacie.
+Opis działania:
+Firma kupiła 3 komputery za kwotę 1234 USD.
+- komputer 1 – kwota 345 USD
+- komputer 2 – kwota 543 USD
+- komputer 3 – kwota 346 USD
+Należy napisać aplikację, która skorzysta ze strony NBP (użyje JSON i odpyta serwis NBP pod adresem: http://api.nbp.pl), gdzie parametrem będzie data przewalutowania i przeliczy koszt zakupu komputerów na PLN (dokumentacja i API pod adresem http://api.nbp.pl).
+Po przeliczeniu wynik zostanie zwrócony do użytkownika i dane zostaną zapisane w bazie danych, oraz w pliku XML
+Format pliku XML:
+
+<faktura>
+  <komputer>
+      <nazwa></nazwa>
+      <data_ksiegowania></data_ksiegowania>
+      <koszt_USD></koszt_USD>
+      <koszt_PLN></koszt_PLN>
+  </komputer>
+  <komputer>
+      <nazwa></nazwa>
+      <data_ksiegowania></data_ksiegowania>
+      <koszt_USD></koszt_USD>
+      <koszt_PLN></koszt_PLN>
+  </komputer>
+</faktura>
+
+
+Tabela w bazie danych:
+nazwa | data_ksiegowania | koszt_USD | koszt_PLN
+Po zapisie do bazy danych aplikacja powinna móc wyszukać komputery po nazwie (wpisując tylko fragment nazwy komputera) oraz po dacie księgowania. Należy wyświetlić wszystkie dane o komputerze oraz mieć możliwość sortowania po nazwie oraz dacie księgowania.
+Komputery należy zapisać z datą przewalutowania 3 stycznia 2022 i 10 stycznia 2022.
+
+

@@ -3,6 +3,7 @@ package dasz;
 import dasz.model.Computer;
 import dasz.model.Invoice;
 import dasz.nbpconsumingrest.UsdReader;
+import dasz.xml.XmlInvoiceWriter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -20,6 +21,7 @@ public class UgTestApplication {
         invoice.addComputer(computer);
         invoice.addComputer(computer1);
         System.out.println(invoice);
+        XmlInvoiceWriter.saveInvoiceToXml(invoice);
 
 
     }

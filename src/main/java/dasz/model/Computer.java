@@ -37,6 +37,6 @@ public class Computer {
                 "<nazwa></"+name+">\n" +
                 "<data_ksiegowania></" + date + ">\n" +
                 "<koszt_USD></" + costUSD + ">\n" +
-                "<koszt_PLN></" + costPLN +">";
+                "<koszt_PLN></" + costPLN +">\n";
     }
 }

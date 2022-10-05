@@ -1,5 +1,7 @@
 package dasz.database;
 
+import dasz.model.Computer;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +12,8 @@ public class H2Interface {
     public static void main(String[] argv) throws SQLException {
         H2Interface h2Interface = new H2Interface();
         h2Interface.createTable();
-        h2Interface.addComputer();
+        Computer computer = new Computer("maszyna", "2022-09-01", 345);
+        h2Interface.addComputer(computer);
         h2Interface.showComputers();
     }
 
@@ -24,7 +27,7 @@ public class H2Interface {
                         "  koszt_PLN VARCHAR(250) NOT NULL\n" +
                         "   \n" +
                         ");";
-        System.out.println(createTableSQL);
+        //System.out.println(createTableSQL);
         // Step 1: Establishing a Connection
         try (Connection connection = H2JDBCUtils.getConnection();
              // Step 2:Create a statement using connection object
@@ -36,9 +39,9 @@ public class H2Interface {
         }
     }
 
-    public void addComputer() throws SQLException {
+    public void addComputer(Computer computer) throws SQLException {
         String addComputer = "INSERT INTO computers  VALUES\n" +
-                "  ('computer3', '2022-01-01', '4.444', '5.555')";
+                "  ('"+computer.getName()+"', '"+computer.getDate()+"', '"+computer.getCostUSD()+"', '"+computer.getCostPLN()+"')";
         try (Connection connection = H2JDBCUtils.getConnection();
              Statement statement = connection.createStatement();) {
             statement.execute(addComputer);
@@ -53,7 +56,7 @@ public class H2Interface {
              Statement statement = connection.createStatement();) {
             ResultSet resultSet = statement.executeQuery(showComputers);
             while (resultSet.next()) {
-                System.out.println(resultSet.getString(1)+resultSet.getString(2)+resultSet.getString(3)+resultSet.getString(4));
+                System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4));
             }
         } catch (SQLException e) {
             H2JDBCUtils.printSQLException(e);

@@ -1,0 +1,14 @@
+<faktura>
+<komputer>
+<nazwa></maszyna>
+<data_ksiegowania></2022-01-03>
+<koszt_USD></345.0>
+<koszt_PLN></1386.693>
+</komputer>
+<komputer>
+<nazwa></bestia>
+<data_ksiegowania></2022-01-10>
+<koszt_USD></543.0>
+<koszt_PLN></2157.5019>
+</komputer>
+</faktura>

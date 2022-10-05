@@ -9,6 +9,6 @@ class UsdReaderTest {
     @Test
     void getUsdForDate() {
         assertEquals(4.618, UsdReader.getUsdForDate("2022-08-01"));
-        assertEquals(4.676, UsdReader.getUsdForDate("2022-09-01"));
+        assertEquals(4.6768, UsdReader.getUsdForDate("2022-09-01"));
     }
 }

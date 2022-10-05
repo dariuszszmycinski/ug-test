@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 
 import org.json.JSONObject;
 
@@ -27,7 +28,7 @@ public class UsdReader {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String jsonText = readAll(rd);
             JSONObject json = new JSONObject(jsonText);
-            return Double.parseDouble(json.toString().split("bid\":")[1].substring(0, 5));
+            return Double.parseDouble(json.toString().split("bid\":")[1].split(",")[0]);
         } catch (Exception e) {
             System.out.println("not possible to get UsdCurrency");
         }

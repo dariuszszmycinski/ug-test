@@ -20,8 +20,8 @@ public class H2Interface {
                 "CREATE TABLE IF NOT EXISTS computers (\n" +
                         "  nazwa VARCHAR(250) NOT NULL,\n" +
                         "  data_ksiegowania VARCHAR(250) NOT NULL,\n" +
-                        "  kosztUSD VARCHAR(250) NOT NULL,\n" +
-                        "  kosztPLN VARCHAR(250) NOT NULL\n" +
+                        "  koszt_USD VARCHAR(250) NOT NULL,\n" +
+                        "  koszt_PLN VARCHAR(250) NOT NULL\n" +
                         "   \n" +
                         ");";
         System.out.println(createTableSQL);

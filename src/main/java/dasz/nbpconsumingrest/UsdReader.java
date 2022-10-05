@@ -21,7 +21,7 @@ public class UsdReader {
         return sb.toString();
     }
 
-    public static Double getUsdForDate(String date) {
+    public static double getUsdForDate(String date) {
         String url = "http://api.nbp.pl/api/exchangerates/rates/c/usd/" + date + "/?format=json";
         try (InputStream is = new URL(url).openStream()) {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));

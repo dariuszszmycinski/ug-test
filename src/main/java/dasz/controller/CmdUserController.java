@@ -23,7 +23,7 @@ public class CmdUserController {
             e.printStackTrace();
         }
         while (run) {
-            System.out.println("Wybierz opcję:\n1 - nowa faktura\n2 - wyszukaj komputery po nazwie\n3- wyszukaj komputery po dacie\n4 - wyjście");
+            System.out.println("Wybierz opcję:\n1 - nowa faktura\n2 - wyszukaj komputery po nazwie\n3 - wyszukaj komputery po dacie\n4 - wyjście");
             byte option = getOption(in, 4);
             switch (option) {
                 case 1:
@@ -38,10 +38,20 @@ public class CmdUserController {
                     }
                     break;
                 case 2:
-                    System.out.println("2");
+                    String name = getName(in);
+                    try {
+                        h2Interface.showComputersByName(name);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 3:
-                    System.out.println("3");
+                    String date = getDate(in);
+                    try {
+                        h2Interface.showComputersByDate(date);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 4:
                     System.out.println("Pa pa");
@@ -151,11 +161,4 @@ public class CmdUserController {
         }
         return usd;
     }
-
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        createInvoice(in);
-
-    }
-
 }

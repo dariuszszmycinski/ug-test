@@ -5,9 +5,9 @@ import dasz.model.Computer;
 import dasz.model.Invoice;
 import dasz.nbpconsumingrest.UsdReader;
 import dasz.xml.XmlInvoiceWriter;
-
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class CmdUserController {
@@ -17,11 +17,8 @@ public class CmdUserController {
         boolean run = true;
         Scanner in = new Scanner(System.in);
         H2Interface h2Interface = new H2Interface();
-        try {
-            h2Interface.createTable();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        h2Interface.createTable();
+        List<Computer> computerList;
         while (run) {
             System.out.println("Wybierz opcję:\n1 - nowa faktura\n2 - wyszukaj komputery po nazwie\n3 - wyszukaj komputery po dacie\n4 - wyjście");
             byte option = getOption(in, 4);
@@ -29,32 +26,28 @@ public class CmdUserController {
                 case 1:
                     Invoice invoice = createInvoice(in);
                     XmlInvoiceWriter.saveInvoiceToXml(invoice);
-                    try {
-                        for (Computer c : invoice.getComputerList()) {
-                            h2Interface.addComputer(c);
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+                    for (Computer c : invoice.getComputerList()) {
+                        h2Interface.addComputer(c);
                     }
                     break;
                 case 2:
                     String name = getName(in);
-                    try {
-                        h2Interface.showComputersByName(name);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+                    computerList = h2Interface.showComputersByName(name);
+                    for (Computer c : computerList){
+                        System.out.println(c.toStringFlat());
                     }
+                    chooseSorting(in, computerList);
                     break;
                 case 3:
                     String date = getDate(in);
-                    try {
-                        h2Interface.showComputersByDate(date);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+                    computerList = h2Interface.showComputersByDate(date);
+                    for (Computer c : computerList){
+                        System.out.println(c.toStringFlat());
                     }
+                    chooseSorting(in, computerList);
                     break;
                 case 4:
-                    System.out.println("Pa pa");
+                    System.out.println("Zapraszam ponownie!");
                     run = false;
                     break;
             }
@@ -160,5 +153,47 @@ public class CmdUserController {
             }
         }
         return usd;
+    }
+
+    private static void chooseSorting(Scanner in, List<Computer> computerList){
+        boolean run = true;
+        if (!computerList.isEmpty()) {
+            while (run) {
+                System.out.println("Wybierz opcję:\n1 - sortuj rosnąco po nazwie\n2 - sortuj malejąco po nazwie\n3 - sortuj rosnąco po dacie\n4 - sortuj malejąco po dacie\n5 - powrót");
+                byte option = getOption(in, 5);
+                switch (option) {
+                    case 1:
+                        computerList.sort(Comparator.comparing(Computer::getName));
+                        for (Computer c:computerList){
+                            System.out.println(c.toStringFlat());
+                        }
+                        break;
+                    case 2:
+                        computerList.sort(Comparator.comparing(Computer::getName).reversed());
+                        for (Computer c:computerList){
+                            System.out.println(c.toStringFlat());
+                        }
+                        break;
+                    case 3:
+                        computerList.sort(Comparator.comparing(Computer::getDate));
+                        for (Computer c:computerList){
+                            System.out.println(c.toStringFlat());
+                        }
+                        break;
+                    case 4:
+                        computerList.sort(Comparator.comparing(Computer::getDate).reversed());
+                        for (Computer c:computerList){
+                            System.out.println(c.toStringFlat());
+                        }
+                        break;
+                    case 5:
+                        run = false;
+                        break;
+                }
+            }
+        } else {
+            System.out.println("Nie znaleziono wyników.");
+        }
+
     }
 }

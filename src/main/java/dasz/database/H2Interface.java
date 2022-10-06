@@ -6,21 +6,22 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class H2Interface {
 
-    public static void main(String[] argv) throws SQLException {
+    public static void main(String[] argv) {
         H2Interface h2Interface = new H2Interface();
         //h2Interface.createTable();
         //Computer computer = new Computer("owieczka", "1111-09-01", 345);
         //h2Interface.addComputer(computer);
-        //h2Interface.showComputers();
         //h2Interface.showComputersByName("");
         h2Interface.showComputersByDate("2022-09-01");
 
     }
 
-    public void createTable() throws SQLException {
+    public void createTable() {
         String createTableSQL =
                 //   "DROP TABLE IF EXISTS computers;"+
                 "CREATE TABLE IF NOT EXISTS computers (\n" +
@@ -30,68 +31,53 @@ public class H2Interface {
                         "  koszt_PLN DOUBLE NOT NULL\n" +
                         "   \n" +
                         ");";
-        //System.out.println(createTableSQL);
-        // Step 1: Establishing a Connection
         try (Connection connection = H2JDBCUtils.getConnection();
-             // Step 2:Create a statement using connection object
-             Statement statement = connection.createStatement();) {
-            // Step 3: Execute the query or update query
+             Statement statement = connection.createStatement()) {
             statement.execute(createTableSQL);
         } catch (SQLException e) {
             H2JDBCUtils.printSQLException(e);
         }
     }
 
-    public void addComputer(Computer computer) throws SQLException {
+    public void addComputer(Computer computer) {
         String addComputer = "INSERT INTO computers  VALUES\n" +
-                "  ('"+computer.getName()+"', '"+computer.getDate()+"', '"+computer.getCostUSD()+"', '"+computer.getCostPLN()+"')";
+                "  ('" + computer.getName() + "', '" + computer.getDate() + "', '" + computer.getCostUSD() + "', '" + computer.getCostPLN() + "')";
         try (Connection connection = H2JDBCUtils.getConnection();
-             Statement statement = connection.createStatement();) {
+             Statement statement = connection.createStatement()) {
             statement.execute(addComputer);
         } catch (SQLException e) {
             H2JDBCUtils.printSQLException(e);
         }
     }
 
-    public void showComputers() throws SQLException {
-        String showComputers = "SELECT * FROM computers";
+    public List<Computer> showComputersByName(String name) {
+        String showComputers = "SELECT * FROM computers WHERE nazwa LIKE '%" + name + "%'";
+        List<Computer> computers = new ArrayList<>();
         try (Connection connection = H2JDBCUtils.getConnection();
              Statement statement = connection.createStatement();) {
             ResultSet resultSet = statement.executeQuery(showComputers);
             while (resultSet.next()) {
-                System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4));
+                computers.add(new Computer(resultSet.getString(1), resultSet.getString(2),  Double.parseDouble(resultSet.getString(3)), Double.parseDouble(resultSet.getString(4))));
             }
         } catch (SQLException e) {
             H2JDBCUtils.printSQLException(e);
         }
+        return computers;
     }
 
-    public void showComputersByName(String name) throws SQLException {
-        String showComputers = "SELECT * FROM computers WHERE nazwa LIKE '%"+name+"%'";
+    public List<Computer> showComputersByDate(String date) {
+        String showComputers = "SELECT * FROM computers WHERE data_ksiegowania LIKE '%" + date + "%'";
+        List<Computer> computers = new ArrayList<>();
         try (Connection connection = H2JDBCUtils.getConnection();
              Statement statement = connection.createStatement();) {
             ResultSet resultSet = statement.executeQuery(showComputers);
             while (resultSet.next()) {
-                System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4));
+                computers.add(new Computer(resultSet.getString(1), resultSet.getString(2),  Double.parseDouble(resultSet.getString(3)), Double.parseDouble(resultSet.getString(4))));
             }
         } catch (SQLException e) {
             H2JDBCUtils.printSQLException(e);
         }
+        return computers;
     }
-
-    public void showComputersByDate(String date) throws SQLException {
-        String showComputers = "SELECT * FROM computers WHERE data_ksiegowania LIKE '%"+date+"%'";
-        try (Connection connection = H2JDBCUtils.getConnection();
-             Statement statement = connection.createStatement();) {
-            ResultSet resultSet = statement.executeQuery(showComputers);
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4));
-            }
-        } catch (SQLException e) {
-            H2JDBCUtils.printSQLException(e);
-        }
-    }
-
-
 
 }

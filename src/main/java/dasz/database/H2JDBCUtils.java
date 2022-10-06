@@ -6,16 +6,15 @@ import java.sql.SQLException;
 
 public class H2JDBCUtils {
 
-    private static String jdbcURL = "jdbc:h2:file:C:/data/demo";
-    private static String jdbcUsername = "sa";
-    private static String jdbcPassword = "password";
+    private static final String jdbcURL = "jdbc:h2:file:C:/data/demo";
+    private static final String jdbcUsername = "sa";
+    private static final String jdbcPassword = "password";
 
     public static Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return connection;

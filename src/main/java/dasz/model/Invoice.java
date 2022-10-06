@@ -2,12 +2,11 @@ package dasz.model;
 
 import java.util.ArrayList;
 
-
 public class Invoice {
     private ArrayList<Computer> computerList;
 
     public Invoice() {
-        this.computerList = new ArrayList<Computer>();
+        this.computerList = new ArrayList<>();
     }
 
     public void addComputer(Computer computer){
@@ -30,6 +29,5 @@ public class Invoice {
         sb.append("</faktura>\n");
         return sb.toString();
     }
-
 
 }

@@ -1,7 +1,6 @@
 package dasz.database;
 
 import dasz.model.Computer;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,19 +10,9 @@ import java.util.List;
 
 public class H2Interface {
 
-    public static void main(String[] argv) {
-        H2Interface h2Interface = new H2Interface();
-        //h2Interface.createTable();
-        //Computer computer = new Computer("owieczka", "1111-09-01", 345);
-        //h2Interface.addComputer(computer);
-        //h2Interface.showComputersByName("");
-        h2Interface.showComputersByDate("2022-09-01");
-
-    }
-
     public void createTable() {
         String createTableSQL =
-                //   "DROP TABLE IF EXISTS computers;"+
+                //"DROP TABLE IF EXISTS computers;"+
                 "CREATE TABLE IF NOT EXISTS computers (\n" +
                         "  nazwa VARCHAR(250) NOT NULL,\n" +
                         "  data_ksiegowania VARCHAR(10) NOT NULL,\n" +

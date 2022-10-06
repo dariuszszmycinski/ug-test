@@ -23,33 +23,33 @@ public class CmdUserController {
             System.out.println("Wybierz opcję:\n1 - nowa faktura\n2 - wyszukaj komputery po nazwie\n3 - wyszukaj komputery po dacie\n4 - wyjście");
             byte option = getOption(in, 4);
             switch (option) {
-                case 1:
+                case 1 -> {
                     Invoice invoice = createInvoice(in);
                     XmlInvoiceWriter.saveInvoiceToXml(invoice);
                     for (Computer c : invoice.getComputerList()) {
                         h2Interface.addComputer(c);
                     }
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     String name = getName(in);
                     computerList = h2Interface.showComputersByName(name);
-                    for (Computer c : computerList){
+                    for (Computer c : computerList) {
                         System.out.println(c.toStringFlat());
                     }
                     chooseSorting(in, computerList);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     String date = getDate(in);
                     computerList = h2Interface.showComputersByDate(date);
-                    for (Computer c : computerList){
+                    for (Computer c : computerList) {
                         System.out.println(c.toStringFlat());
                     }
                     chooseSorting(in, computerList);
-                    break;
-                case 4:
+                }
+                case 4 -> {
                     System.out.println("Zapraszam ponownie!");
                     run = false;
-                    break;
+                }
             }
         }
         System.out.println("koniec programu");
@@ -82,12 +82,8 @@ public class CmdUserController {
             System.out.println("Wybierz opcję:\n1 - dodaj kolejny komputer\n2 - zakończ fakturę");
             byte option = getOption(in, 2);
             switch (option) {
-                case 1:
-                    invoice.addComputer(createComputer(in));
-                    break;
-                case 2:
-                    run = false;
-                    break;
+                case 1 -> invoice.addComputer(createComputer(in));
+                case 2 -> run = false;
             }
         }
         return invoice;
@@ -162,33 +158,31 @@ public class CmdUserController {
                 System.out.println("Wybierz opcję:\n1 - sortuj rosnąco po nazwie\n2 - sortuj malejąco po nazwie\n3 - sortuj rosnąco po dacie\n4 - sortuj malejąco po dacie\n5 - powrót");
                 byte option = getOption(in, 5);
                 switch (option) {
-                    case 1:
+                    case 1 -> {
                         computerList.sort(Comparator.comparing(Computer::getName));
-                        for (Computer c:computerList){
+                        for (Computer c : computerList) {
                             System.out.println(c.toStringFlat());
                         }
-                        break;
-                    case 2:
+                    }
+                    case 2 -> {
                         computerList.sort(Comparator.comparing(Computer::getName).reversed());
-                        for (Computer c:computerList){
+                        for (Computer c : computerList) {
                             System.out.println(c.toStringFlat());
                         }
-                        break;
-                    case 3:
+                    }
+                    case 3 -> {
                         computerList.sort(Comparator.comparing(Computer::getDate));
-                        for (Computer c:computerList){
+                        for (Computer c : computerList) {
                             System.out.println(c.toStringFlat());
                         }
-                        break;
-                    case 4:
+                    }
+                    case 4 -> {
                         computerList.sort(Comparator.comparing(Computer::getDate).reversed());
-                        for (Computer c:computerList){
+                        for (Computer c : computerList) {
                             System.out.println(c.toStringFlat());
                         }
-                        break;
-                    case 5:
-                        run = false;
-                        break;
+                    }
+                    case 5 -> run = false;
                 }
             }
         } else {

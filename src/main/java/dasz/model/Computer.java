@@ -12,7 +12,14 @@ public class Computer {
         this.name = name;
         this.date = date;
         this.costUSD = costUSD;
-        this.costPLN = UsdReader.getUsdForDate(date)*costUSD;
+        this.costPLN = UsdReader.getUsdForDate(date) * costUSD;
+    }
+
+    public Computer(String name, String date, double costUSD, double costPLN) {
+        this.name = name;
+        this.date = date;
+        this.costUSD = costUSD;
+        this.costPLN = costPLN;
     }
 
     public String getName() {
@@ -34,9 +41,13 @@ public class Computer {
     @Override
     public String toString() {
         return
-                "<nazwa></"+name+">\n" +
-                "<data_ksiegowania></" + date + ">\n" +
-                "<koszt_USD></" + costUSD + ">\n" +
-                "<koszt_PLN></" + costPLN +">\n";
+                "<nazwa></" + name + ">\n" +
+                        "<data_ksiegowania></" + date + ">\n" +
+                        "<koszt_USD></" + costUSD + ">\n" +
+                        "<koszt_PLN></" + costPLN + ">\n";
+    }
+
+    public String toStringFlat() {
+        return name + ' ' + date + ' ' + costUSD + "$ " + costPLN + "PLN";
     }
 }

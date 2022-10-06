@@ -12,8 +12,8 @@ public class H2Interface {
     public static void main(String[] argv) throws SQLException {
         H2Interface h2Interface = new H2Interface();
         h2Interface.createTable();
-        Computer computer = new Computer("maszyna", "2022-09-01", 345);
-        h2Interface.addComputer(computer);
+        //Computer computer = new Computer("maszyna", "2022-09-01", 345);
+        //h2Interface.addComputer(computer);
         h2Interface.showComputers();
     }
 

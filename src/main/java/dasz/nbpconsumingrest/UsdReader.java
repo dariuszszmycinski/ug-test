@@ -30,7 +30,7 @@ public class UsdReader {
             JSONObject json = new JSONObject(jsonText);
             return Double.parseDouble(json.toString().split("bid\":")[1].split(",")[0]);
         } catch (Exception e) {
-            System.out.println("not possible to get UsdCurrency");
+            System.out.println("Brak kursu USD na stronie NBP dla tej daty.");
         }
         return 0.0;
     }

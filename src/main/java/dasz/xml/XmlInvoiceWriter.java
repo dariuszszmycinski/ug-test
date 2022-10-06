@@ -14,6 +14,7 @@ public class XmlInvoiceWriter {
             FileWriter myWriter = new FileWriter(fileToWrite, true);
             myWriter.write(invoice.toString());
             myWriter.close();
+            System.out.println("Utworzono plik Xml \"invoice "+LocalDate.now()+".xml\"");
         } catch (IOException e) {
             e.printStackTrace();
         }
